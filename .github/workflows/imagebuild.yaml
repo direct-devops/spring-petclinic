@@ -22,3 +22,14 @@ jobs:
         with:
           username: ramqt2205
           password: ${{ secrets.DOCKER_PAT }}
+      
+    #   - name: buid spring application
+    #     run: |
+    #       docker image build -t ramqt2205/spring-boot:1.0.0 .
+    #       docker push ramqt2205/spring-boot:1.0.0
+
+      - name: Build and push
+        uses: docker/build-push-action@v7
+        with:
+          push: true
+          tags: ramqt2205/spring-boot:1.0.0
