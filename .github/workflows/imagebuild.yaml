@@ -5,13 +5,12 @@ on:
     branches: 'main'
 
 env:
-  image_name: spring-boot
   docker_org: ramqt2205
   image_version: 1.1.0
 
 jobs:
   build_and_publish_image:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     steps:
       - name: checkout repo branch
         uses: actions/checkout@v7
