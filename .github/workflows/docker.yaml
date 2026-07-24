@@ -1,17 +1,6 @@
 name: docker_workflow
 
 on: 
-  workflow_dispatch:
-    inputs:
-      dockerimage:
-       default: spring
-       type: string
-       required: true
-      DOCKERHUB_USERNAME:
-        type: string
-        default: ramqt2205
-        required: true
-        
   workflow_call:
     inputs:
       dockerimage:
@@ -45,11 +34,11 @@ jobs:
         uses: docker/build-push-action@v7
         with:
           push: true
-          tags: ${{ github.event.inputs.DOCKERHUB_USERNAME }}/${{ github.event.inputs.dockerimage }}:${{ github.run_id }}
+          tags: ${{ inputs.DOCKERHUB_USERNAME }}/${{ inputs.dockerimage }}:${{ github.run_number }}
 
       - name: buid and publish image main
         if: ${{ github.ref_name != 'main' }}
         uses: docker/build-push-action@v7
         with:
           push: true
-          tags: ${{ github.event.inputs.DOCKERHUB_USERNAME }}/${{ github.event.inputs.dockerimage }}-snapshot:${{ github.run_number }}
+          tags: ${{ inputs.DOCKERHUB_USERNAME }}/${{ inputs.dockerimage }}-snapshot:${{ github.run_number }}
