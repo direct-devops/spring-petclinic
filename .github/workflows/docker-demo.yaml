@@ -10,3 +10,5 @@ jobs:
     with:
       dockerimage: ${{ github.repository }}
       DOCKERHUB_USERNAME: ramqt2205
+    secrets: inherit
+    
