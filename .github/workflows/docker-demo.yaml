@@ -1,0 +1,12 @@
+name: call docker workflow
+
+on:
+  push:
+    branches: '*'
+
+jobs:
+  call-docker-build:
+    uses: ./.github/workflows/docker.yaml
+    with:
+      dockerimage: ${{ github.repository }}
+      DOCKERHUB_USERNAME: ramqt2205
