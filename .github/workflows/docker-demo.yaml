@@ -6,7 +6,7 @@ on:
 
 jobs:
   call-docker-build:
-    uses: ./.github/workflows/docker.yaml
+    uses: direct-devops/actions/.github/workflows/docker.yaml@main
     with:
       dockerimage: ${{ github.repository }}
       DOCKERHUB_USERNAME: ramqt2205
