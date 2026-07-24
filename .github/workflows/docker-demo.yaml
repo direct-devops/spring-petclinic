@@ -8,7 +8,7 @@ jobs:
   call-docker-build:
     uses: direct-devops/actions/.github/workflows/docker.yaml@main
     with:
-      dockerimage: ${{ github.repository.name }}
+      dockerimage: spring-petclinic # ${{ github.repository.name }}
       DOCKERHUB_USERNAME: ramqt2205
     secrets: inherit
     
