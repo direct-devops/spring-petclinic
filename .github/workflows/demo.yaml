@@ -1,4 +1,4 @@
-name: Dynamic enviroment
+name: test-Matrix
 
 on: 
   push:
@@ -6,19 +6,31 @@ on:
 
 jobs:
   test:
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
+    strategy:
+      # max-parallel: 2
+      matrix:
+        os: [ ubuntu-latest, windows-latest]
+        node-version: [16, 18]
+        exclude:
+          - os: windows-latest
+            node-version: 18
+          - os: ubuntu-latest
+            node-version: 16
+        include:
+          - os: ubuntu-latest
+            node-version: 18
+          - os: windows-latest
+            node-version: 16
     steps:
       - name: checkout
         uses: actions/checkout@v7
 
-      - name: install chart version
-        run: |
-          echo "BUILD_ID=$(date +%d-%m-%Y)" >> "$GITHUB_ENV"
+      - name: install nodejs
+        uses: actions/setup-node@v7
+        with:
+          node-version: ${{ matrix.node-version }}
 
-      - name: print dynamic
-        run: |
-          echo "###############################################################" >> "$GITHUB_STEP_SUMMARY"
-          echo "############## buid name: samplejob############################" >> "$GITHUB_STEP_SUMMARY"
-          echo "build started day: ${{ env.BUILD_ID }}" >> "$GITHUB_STEP_SUMMARY"
-          echo "######################### END ####################################" >> "$GITHUB_STEP_SUMMARY"
-          
+     - name: summary for jobs
+       run: |
+        echo "result ${{ matrix.node-version }} is passed" >> "$GITHUB_STEP_SUMMARY"
