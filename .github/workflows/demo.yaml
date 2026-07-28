@@ -16,4 +16,9 @@ jobs:
           echo "BUILD_ID=$(date +%d-%m-%Y)" >> "$GITHUB_ENV"
 
       - name: print dynamic
-        run: echo "${{ env.BUILD_ID }}"
+        run: |
+          echo "###############################################################" >> "$GITHUB_STEP_SUMMARY"
+          echo "############## buid name: samplejob############################" >> "$GITHUB_STEP_SUMMARY"
+          echo "build started day: ${{ env.BUILD_ID }}" >> "$GITHUB_STEP_SUMMARY"
+          echo "######################### END ####################################" >> "$GITHUB_STEP_SUMMARY"
+          
