@@ -3,7 +3,7 @@ name: Build and Push Docker Image
 on:
   push:
     branches:
-      - main
+      - "*"
 
 jobs:
   docker:
@@ -17,7 +17,7 @@ jobs:
         run: |
           echo '{
             "insecure-registries": [
-              "34.229.212.219:8081"
+              "3.208.29.184:8081"
             ]
           }' | sudo tee /etc/docker/daemon.json
 
@@ -30,8 +30,8 @@ jobs:
         uses: docker/login-action@v3
         with:
           registry: 34.229.212.219:8081
-          username: ${{ secrets.NEXUS_USERNAME }}
-          password: ${{ secrets.NEXUS_PASSWORD }}
+          username: admin #${{ secrets.NEXUS_USERNAME }}
+          password: admin123#${{ secrets.NEXUS_PASSWORD }}
 
       - name: Build and Push Image
         uses: docker/build-push-action@v6
@@ -39,5 +39,5 @@ jobs:
           context: .
           push: true
           tags: |
-            34.229.212.219:8081/spring-petclinic:${{ github.sha }}
-            34.229.212.219:8081/spring-petclinic:latest
+            3.208.29.184:8081/qt-dev-dcoker/spring-petclinic:${{ github.sha }}
+            3.208.29.184:8081/qt-dev-dcoker/spring-petclinic:latest
